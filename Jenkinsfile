@@ -70,6 +70,7 @@ pipeline {
                             -DskipITs \
                             -Dmaven.main.skip \
                             -Dmaven.test.skip \
+                            -Dmaven.javadoc.skip \
                             -s '${MAVEN_SETTINGS}' \
                             -P inject-application-properties \
                             -DrepositoryId='${repositoryId}'
