@@ -105,7 +105,7 @@ pipeline {
                 GITHUB_OWNER    = "ikmdev"
                 GITHUB_REPO     = "tinkar-starter-bindings"
                 GITHUB_REPO_GIT = "https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}.git"
-                GITHUB_RELEASE  = "https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases"
+                GITHUB_API_RELEASE  = "https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases"
                 GITHUB_CREDS    = credentials('github_ikmdev-pat')
             }
 
@@ -119,7 +119,7 @@ pipeline {
             steps{
                 sh """
                     set -x
-                    curl -u ${GITHUB_CREDS_USR}:${GITHUB_CREDS_PSW} -X POST -H 'Accept: application/vnd.github.v3+json' https://api.github.com/repos/ikmdev/test-publish-gitlab-github/releases -d '{"tag_name":"${RELEASE_VERSION}","target_commitish":"main","name":"${RELEASE_MSG}","draft":false,"prerelease":false,"generate_release_notes":false,"body":"${RELEASE_MSG}"}'
+                    curl -u ${GITHUB_CREDS_USR}:${GITHUB_CREDS_PSW} -X POST -H 'Accept: application/vnd.github.v3+json' ${GITHUB_API_RELEASE} -d '{"tag_name":"${RELEASE_VERSION}","target_commitish":"main","name":"${RELEASE_MSG}","draft":false,"prerelease":false,"generate_release_notes":false,"body":"${RELEASE_MSG}"}'
                     echo "pushed to ikm github successfully"
                 """
             }
