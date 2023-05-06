@@ -3,6 +3,17 @@
 pipeline {
     agent any
 
+    environment {
+        GITLAB_REPO     = 'https://gitlab.tinkarbuild.com/test-group/test-publish-gitlab-github.git'
+
+        WORKING_DIR     = 'sourceRepo'
+        BRANCH          = 'main'
+        RELEASE_NOTE    = ''
+        VERSION         = ''
+        MSG             = ''
+        WEBHOOK_URL     = "${GLOBAL_CHATOPS_URL}"
+    }
+
     options {
 
         // Set this to true if you want to clean workspace during the prep stage
@@ -77,6 +88,38 @@ pipeline {
                         """
                     }
                 }
+            }
+        }
+
+        stage("Release to ikm github") {
+
+            when{
+                expression{
+                    branch == 'main' && !isSnapshot
+                }
+            }
+
+            environment {
+                GITHUB_OWNER    = "ikmdev"
+                GITHUB_REPO     = "tinkar-starter-bindings"
+                GITHUB_REPO_GIT = "https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}.git"
+                GITHUB_RELEASE  = "https://api.github.com/repos/${GITHUB_OWNER}/test-publish-gitlab-github/releases"
+                GITHUB_CREDS    = credentials('github_ikmdev-pat')
+            }
+
+            agent {
+                docker {
+                    image "maven:3.8.7-eclipse-temurin-19-focal"
+                    args '-u root:root'
+                }
+            }
+
+            steps{
+                sh """
+                    set -x
+                    curl -u ${GITHUB_CREDS_USR}:${GITHUB_CREDS_PSW} -X POST -H 'Accept: application/vnd.github.v3+json' https://api.github.com/repos/ikmdev/test-publish-gitlab-github/releases -d '{"tag_name":"${VERSION}","target_commitish":"main","name":"${MSG}","draft":false,"prerelease":false,"generate_release_notes":false,"body":"${MSG}"}'
+                    echo "pushed to ikm github successfully"
+                """
             }
         }
     }
