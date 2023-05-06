@@ -105,7 +105,7 @@ pipeline {
                 GITHUB_OWNER    = "ikmdev"
                 GITHUB_REPO     = "tinkar-starter-bindings"
                 GITHUB_REPO_GIT = "https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}.git"
-                GITHUB_RELEASE  = "https://api.github.com/repos/${GITHUB_OWNER}/test-publish-gitlab-github/releases"
+                GITHUB_RELEASE  = "https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases"
                 GITHUB_CREDS    = credentials('github_ikmdev-pat')
             }
 
