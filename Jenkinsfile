@@ -118,8 +118,22 @@ pipeline {
 
             steps{
 
-                 dir("$WORKING_DIR") {
+                sh """
+                    pwd
+                    ls -l
+                """
 
+                withCredentials([gitUsernamePassword(credentialsId: 'gitlab-for-ikmdev-release-token', gitToolName: '')]) {
+                    sh "git clone ${GITLAB_REPO} $WORKING_DIR"
+                }
+
+                sh """
+                    pwd
+                    ls -l
+                """
+
+                 dir("$WORKING_DIR") {
+                    sh 'pwd'
                     // set no-reply email address
                     sh 'git config --global user.email "120604367+pmaheshm@users.noreply.github.com"'
                     sh 'git config --global user.name "pmaheshm"'
