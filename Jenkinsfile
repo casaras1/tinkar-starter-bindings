@@ -65,6 +65,8 @@ pipeline {
                     pomVersion = pomModel.getVersion()
                     isSnapshot = pomVersion.contains("-SNAPSHOT")
                     repositoryId = 'maven-releases'
+                    RELEASE_VERSION=pomVersion
+                    RELEASE_MSG="release1.1.2"
 
                     if (isSnapshot) {
                         repositoryId = 'maven-snapshots'
@@ -117,7 +119,7 @@ pipeline {
             steps{
                 sh """
                     set -x
-                    curl -u ${GITHUB_CREDS_USR}:${GITHUB_CREDS_PSW} -X POST -H 'Accept: application/vnd.github.v3+json' https://api.github.com/repos/ikmdev/test-publish-gitlab-github/releases -d '{"tag_name":"${VERSION}","target_commitish":"main","name":"${MSG}","draft":false,"prerelease":false,"generate_release_notes":false,"body":"${MSG}"}'
+                    curl -u ${GITHUB_CREDS_USR}:${GITHUB_CREDS_PSW} -X POST -H 'Accept: application/vnd.github.v3+json' https://api.github.com/repos/ikmdev/test-publish-gitlab-github/releases -d '{"tag_name":"${RELEASE_VERSION}","target_commitish":"main","name":"${RELEASE_MSG}","draft":false,"prerelease":false,"generate_release_notes":false,"body":"${RELEASE_MSG}"}'
                     echo "pushed to ikm github successfully"
                 """
             }
