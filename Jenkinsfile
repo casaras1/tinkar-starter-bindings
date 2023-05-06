@@ -120,16 +120,7 @@ pipeline {
 
                 sh """
                     pwd
-                    ls -l
-                """
-
-                withCredentials([gitUsernamePassword(credentialsId: 'gitlab-for-ikmdev-release-token', gitToolName: '')]) {
-                    sh "git clone ${GITLAB_REPO} $WORKING_DIR"
-                }
-
-                sh """
-                    pwd
-                    ls -l
+                    ls -al
                 """
 
                  dir("$WORKING_DIR") {
