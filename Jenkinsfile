@@ -66,7 +66,7 @@ pipeline {
                     isSnapshot = pomVersion.contains("-SNAPSHOT")
                     repositoryId = 'maven-releases'
                     RELEASE_VERSION=pomVersion
-                    RELEASE_MSG="release1.1.2"
+                    RELEASE_MSG="release ${RELEASE_VERSION}"
 
                     if (isSnapshot) {
                         repositoryId = 'maven-snapshots'
