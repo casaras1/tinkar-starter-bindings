@@ -13,7 +13,7 @@
 
   <groupId>dev.ikm.tinkar</groupId>
   <artifactId>tinkar-starter-bindings</artifactId>
-  <version>1.0.7-SNAPSHOT</version>
+  <version>1.0.8</version>
 
   <name>tinkar-starter-bindings</name>
   <packaging>jar</packaging>
