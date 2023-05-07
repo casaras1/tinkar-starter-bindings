@@ -118,33 +118,19 @@ pipeline {
 
             steps{
 
-                sh """
-                    pwd
-                    ls -al
-                """
+                // set no-reply email address
+                sh 'git config --global user.email "120604367+pmaheshm@users.noreply.github.com"'
+                sh 'git config --global user.name "pmaheshm"'
+                // sh 'git config --global http.version HTTP/1.1'
 
-                 dir("$WORKING_DIR") {
-                    sh 'pwd'
-                    // set no-reply email address
-                    sh 'git config --global user.email "120604367+pmaheshm@users.noreply.github.com"'
-                    sh 'git config --global user.name "pmaheshm"'
-                    // sh 'git config --global http.version HTTP/1.1'
+                // See what remotes are currently present
+                sh 'git remote -v'
 
-                    // See what remotes are currently present
-                    sh 'git remote -v'
+                // Get the latest tag
+                //sh 'git describe --abbrev=0 --tags'
 
-                    // add a remote repository
-                    sh "git remote add downstream ${GITHUB_REPO_GIT_URL}"
-
-                    // See what remotes are now available
-                    sh 'git remote -v'
-
-                    // Get the latest tag
-                    //sh 'git describe --abbrev=0 --tags'
-
-                    // Tag the branch
-                    sh "git tag -a ${RELEASE_VERSION} -m '${RELEASE_MSG}'"
-                }
+                // Tag the branch
+                sh "git tag -a ${RELEASE_VERSION} -m '${RELEASE_MSG}'"
 
                 withCredentials([gitUsernamePassword(credentialsId: 'gitlab-for-ikmdev-release-token', gitToolName: '')]) {
                     // Tag the origin repo
