@@ -140,7 +140,7 @@ pipeline {
 
                 withCredentials([gitUsernamePassword(credentialsId: 'github_ikmdev-pat', gitToolName: '')]) {
                     // reset the author information on your last commit
-                    sh "git commit -m 'committing code for ${RELEASE_MSG}'"
+                    //sh "git commit -m 'committing code for ${RELEASE_MSG}'"
 
                     // Push the new tag to downstream remote
                     sh "git push downstream ${RELEASE_VERSION}"
