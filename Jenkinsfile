@@ -135,7 +135,7 @@ pipeline {
 
                 withCredentials([gitUsernamePassword(credentialsId: 'gitlab-for-ikmdev-release-token', gitToolName: '')]) {
                     // Tag the origin repo
-                    sh "git branch -a"
+                    sh "git pull origin"
                     sh "git checkout main || git checkout -b main"
                     sh "git push origin ${RELEASE_VERSION}"
                 }
