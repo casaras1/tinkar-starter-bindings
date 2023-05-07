@@ -131,7 +131,7 @@ pipeline {
                 //sh 'git describe --abbrev=0 --tags'
 
                 // Tag the branch
-                sh "git tag -a ${RELEASE_VERSION} -m '${RELEASE_MSG}'"
+                //sh "git tag -a ${RELEASE_VERSION} -m '${RELEASE_MSG}'"
 
                 withCredentials([gitUsernamePassword(credentialsId: 'gitlab-for-ikmdev-release-token', gitToolName: '')]) {
                     // Tag the origin repo
