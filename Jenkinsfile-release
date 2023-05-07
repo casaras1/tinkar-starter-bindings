@@ -76,7 +76,7 @@ pipeline {
                     //sh 'git describe --abbrev=0 --tags'
                     
                     // Tag the branch
-                    sh "git tag -a ${VERSION} -m '${MSG}'"
+                    sh "git tag -a ${RELEASE_VERSION} -m '${RELEASE_MSG}'"
                 }
             }
         }
@@ -86,14 +86,14 @@ pipeline {
                 dir("$WORKING_DIR") {
                     withCredentials([gitUsernamePassword(credentialsId: 'gitlab-for-ikmdev-release-token', gitToolName: '')]) {
                         // Tag the origin repo
-                        sh "git push origin ${VERSION}"
+                        sh "git push origin ${RELEASE_VERSION}"
                     }
                     withCredentials([gitUsernamePassword(credentialsId: 'github_ikmdev-pat', gitToolName: '')]) {
                         // reset the author information on your last commit    
                         //sh "git commit --amend --reset-author -m 'releasing version 1.1.0'"
 
                         // Push the new tag to downstream remote
-                        sh "git push downstream ${VERSION}"
+                        sh "git push downstream ${RELEASE_VERSION}"
 
                         // Push the branch to downstream remote
                         sh "git push downstream ${BRANCH}"
