@@ -121,6 +121,7 @@ pipeline {
                 // set no-reply email address
                 sh 'git config --global user.email "120604367+pmaheshm@users.noreply.github.com"'
                 sh 'git config --global user.name "pmaheshm"'
+                sh 'git config --global http.sslVerify false'
                 // sh 'git config --global http.version HTTP/1.1'
 
                 // See what remotes are currently present
