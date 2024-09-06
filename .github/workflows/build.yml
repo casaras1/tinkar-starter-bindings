@@ -13,12 +13,12 @@ jobs:
   build-job:
     name: Build Job
     runs-on: ubuntu-24.04
-    if: github.repository_owner == 'ikmdev'
     steps:
       - uses: actions/setup-java@v4
         with:
             java-version: '21'
             distribution: 'zulu'
+
       - name: Build IKMDEV Code
         uses: ikmdev/maven-clean-install-build-action@main
         with:
